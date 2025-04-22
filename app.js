@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 
-const userroute = require("../api/routes/user");
-const videoroute = require("../api/routes/video");
-const commentroute = require("../api/routes/comment");
+const userroute = require("./routes/user");
+const videoroute = require("./routes/video");
+const commentroute = require("./routes/comment");
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
 
