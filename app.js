@@ -9,6 +9,7 @@ const videoroute = require("./routes/video");
 const commentroute = require("./routes/comment");
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
+const cors = require("cors")
 
 // Connect to MongoDB
 const connectWithDatabase = async () => {
@@ -22,7 +23,7 @@ const connectWithDatabase = async () => {
 
 connectWithDatabase();
 
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload({
