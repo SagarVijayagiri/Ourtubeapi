@@ -10,6 +10,23 @@ cloudinary.config({
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET
 });
+router.get('/ownvideo',checkauth,async(req,res)=>{
+  try{
+    const token=req.headers.authorization.split(" ")[1];
+    const user=await jwt.verify(token,'sbs online classes 123');
+    console.log(user)
+    const Videos=await video.find({user_id:user._id}).populate('user_id','channelname logourl')
+    res.status(200).json({
+      Videos:Videos
+    })
+  }
+  catch(err){
+    console.log(err)
+    res.status(500).json({
+      error:err.message
+    })
+  }
+})
 router.post('/upload',checkauth,async(req,res)=>{
   try{
     const token=req.headers.authorization.split(" ")[1];
