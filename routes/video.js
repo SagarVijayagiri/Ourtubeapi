@@ -230,9 +230,13 @@ router.put("/views/:videoid",async(req,res)=>{
 })
 router.get('/:id', async (req, res) => {
   try {
-    const video = await video.findById(req.params.id)
-    if (!video) return res.status(404).json({ error: 'Video not found' })
-    res.json({ video })
+    const Video = await video.findById(req.params.id)
+    //console.log(Video)
+    
+    if (!Video) return res.status(404).json({ error: 'Video not found' })
+    res.status(200).json({ 
+      Video:Video
+      })
   } catch (err) {
     res.status(500).json({ error: err.message })
   }
