@@ -10,6 +10,16 @@ cloudinary.config({
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET
 });
+router.get('/:id', async (req, res) => {
+  try {
+    const video = await video.findById(req.params.id)
+    if (!video) return res.status(404).json({ error: 'Video not found' })
+    res.json({ video })
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' })
+  }
+})
+
 router.get('/ownvideo',checkauth,async(req,res)=>{
   try{
     const token=req.headers.authorization.split(" ")[1];
