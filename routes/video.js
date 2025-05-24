@@ -4,6 +4,7 @@ const checkauth=require("../middleware/Checkauth")
 const jwt=require("jsonwebtoken")
 const cloudinary= require('cloudinary').v2
 const video=require("../Modules/video")
+const user=require("../Modules/user")
 const mongoose=require('mongoose');
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -232,10 +233,12 @@ router.get('/:id', async (req, res) => {
   try {
     const Video = await video.findById(req.params.id)
     //console.log(Video)
-    
+    const User=await user.findById(Video.user_id)
+    console.log(User)
     if (!Video) return res.status(404).json({ error: 'Video not found' })
     res.status(200).json({ 
-      Video:Video
+      Video:Video,
+      User:User
       })
   } catch (err) {
     res.status(500).json({ error: err.message })
