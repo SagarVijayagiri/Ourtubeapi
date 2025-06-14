@@ -30,6 +30,15 @@ router.get('/ownvideo',checkauth,async(req,res)=>{
     })
   }
 })
+router.get('/all', async (req, res) => {
+  try {
+    const videos = await video.find().sort({ createdAt: -1 });
+    res.status(200).json({ Videos: videos });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to fetch videos' });
+  }
+});
 router.post('/upload',checkauth,async(req,res)=>{
   try{
     const token=req.headers.authorization.split(" ")[1];
@@ -244,5 +253,9 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ error: err.message })
   }
 })
+
+
+
+module.exports = router;
 
 module.exports=router
